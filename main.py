@@ -1,53 +1,60 @@
 """
-handles application startup and error handling
+CyberPunk Arcade - Main Entry Point
+Handles application startup and error handling
 """
 
 import sys
 import traceback
+import pygame  # Add this import
 from game import CyberpunkArcade
 
 def main():
     """
-    main entry point for the game
+    Main entry point for the CyberPunk Arcade game
     """
-
     print("=" * 50)
-    print("CyberPunk Arcaede - Starting up...")
+    print("CyberPunk Arcade - Starting Up...")
     print("=" * 50)
-
+    
     game = None
-
+    
     try:
-        # create and run the game
+        # Create and run the game
         game = CyberpunkArcade()
         game.run()
-
+        
     except KeyboardInterrupt:
         print("\nGame interrupted by user")
-
+        
     except Exception as e:
-        print(f"\n CRITICAL ERROR: {e}")
+        # Handle any unexpected errors
+        print(f"\n💥 CRITICAL ERROR: {e}")
         print("\nStack trace:")
         traceback.print_exc()
-
-        #try to save the game if possible
+        
+        # Try to save game state if possible
         if game:
             try:
                 game._save_game_data()
-                print("Game state saved before crash.")
+                print("Game state saved before crash")
             except:
                 print("Could not save game state")
-
+        
         input("\nPress Enter to exit...")
-
-
+        
     finally:
-        # ensure clean shutdown
+        # Ensure clean shutdown
         if game:
-            game._quit()
-
+            try:
+                game.quit_game()
+            except:
+                # Fallback cleanup
+                try:
+                    pygame.quit()
+                except:
+                    pass
+        
     print("CyberPunk Arcade - Shutdown Complete")
-    sys.exit(0)
 
 if __name__ == "__main__":
     main()

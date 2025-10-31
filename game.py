@@ -256,7 +256,7 @@ class CyberpunkArcade:
             options.append(("ESC, Quit", NEON_PINK))
 
             # render options
-            for i (text, color) in enumerate(options):
+            for i, (text, color) in enumerate(options):
                 option_text = option_font.render(text, True, color)
                 option_rect = option_text.get_rect(center=(SCREEN_WIDTH//2, 250 + i*50))
                 self.screen.blit(option_text, option_rect)

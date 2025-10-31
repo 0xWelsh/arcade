@@ -44,7 +44,7 @@ def main():
 
     if missing:
         print(f"Missing dependencies: {', '.join(missing)}")
-        choice = input("Would you like to install them automatically" (y/n): )
+        choice = input("Would you like to install them automatically (y/n): ")
 
         if choice.lower() in ['y', 'yes']:
             if install_packages(missing):
